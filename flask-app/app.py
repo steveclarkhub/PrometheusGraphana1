@@ -11,7 +11,7 @@ LATENCY = Histogram('http_request_latency_seconds', 'Latency of HTTP requests')
 @LATENCY.time()
 def hello():
     REQUESTS.inc()
-    time.sleep(2)  # Simulate some work
+    time.sleep(2)  # function work
     return 'Hello, World!'
 
 @app.route('/metrics')
