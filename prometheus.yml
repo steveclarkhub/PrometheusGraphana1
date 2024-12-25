@@ -1,0 +1,15 @@
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds.
+scrape_configs:
+  - job_name: 'flask-app'
+    static_configs:
+      - targets: ['flask-app:5000'] # Target the service name and port
+
+
+# added with https://prometheus.io/docs/prometheus/latest/getting_started/
+# global intervals can be overridden here. Every time-series gets a job=<job_name>
+# - job_name: 'prometheus'
+#    scrape_interval: 5s
+#    static_configs:
+#      - targets: ['localhost:9100']
