@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/data
+    networks: 
+      - my-network
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks: 
+      - my-network
+  flask-app:
+    build: ./flask-app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - prometheus
+    networks: 
+      - my-network
+networks:
+  my-network:  # ensure all containers on the same network
+  # label such as 'flask-app' in docker compose acts as a host name. 
+  # a dns-server container placed on network by docker will resolve 'flask-app' IP
+  # this is the prometheus.yml line: "targets: ['flask-app:5000'] " will work. 
+  # the dnssvr container will find the ip for prometheu.
+  # it's one of the main things that makes docker compose so user friendly
+volumes:
+  prometheus_data:
+  grafana_data:
