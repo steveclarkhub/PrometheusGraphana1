@@ -15,5 +15,8 @@ Access Prometheus at http://localhost:9090
 Access Flask app at http://localhost:5000 
 Access Flask metrics at http://localhost:5000/metrics
 
+MVP+
+grafana integration
+another telemetry endpoint
 
  
